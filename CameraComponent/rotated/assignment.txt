@@ -1,0 +1,65 @@
+Assignment: Visualizing Rotated Camera Streams
+
+Objective:
+In this assignment, you will use the DepthAI SDK to create a Python script that captures and visualizes frames from all available cameras on the OAK device, with the camera streams rotated by 90 degrees.
+
+Requirements:
+1. Install the DepthAI SDK on your system.
+2. Connect an OAK camera to your computer.
+3. Create a Python script that accomplishes the following:
+   - Initialize an OakCamera object with the `rotation` parameter set to 90.
+   - Create camera streams for all available cameras using the `create_all_cameras()` method.
+   - Visualize the camera streams.
+   - Display the frames per second (FPS) on the visualized output.
+   - Start the camera pipeline in blocking mode.
+4. Test your script to ensure it runs without errors and displays the rotated camera streams from all available cameras.
+
+Hints:
+1. Use the `OakCamera(rotation=90)` constructor to initialize the OakCamera object with a rotation of 90 degrees.
+2. Use the `oak.create_all_cameras()` method to create camera streams for all available cameras.
+3. Use the `oak.visualize()` method to visualize the camera streams. Pass the `all_cams` variable as the argument to visualize all the created camera streams. Set `fps=True` to display the FPS on the visualized output.
+4. Use `oak.start(blocking=True)` to start the camera pipeline in blocking mode.
+
+Visualization:
+```
+          +---------------------------------------+
+          |              OAK Camera              |
+          |             (Rotation: 90)           |
+          |                                       |
+          |  +------------+   +------------+      |
+          |  |  Camera 1  |   |  Camera 2  |      |
+          |  +------------+   +------------+      |
+          |                                       |
+          |  +------------+   +------------+      |
+          |  |  Camera 3  |   |  Camera 4  |      |
+          |  +------------+   +------------+      |
+          |                                       |
+          +---------------------------------------+
+                              |
+                              |
+                              v
+          +---------------------------------------+
+          |            Visualization              |
+          |                                       |
+          |  +---------+   +---------+---------+  |
+          |  | Camera1 |   | Camera3 | Camera4 |  |
+          |  | (Rot90) |   | (Rot90) | (Rot90) |  |
+          |  +---------+   +---------+---------+  |
+          |                                       |
+          |  +---------+                          |
+          |  | Camera2 |                          |
+          |  | (Rot90) |                          |
+          |  +---------+                          |
+          |                                       |
+          |                  FPS                  |
+          |                                       |
+          +---------------------------------------+
+```
+
+In this ASCII art visualization:
+1. The OAK Camera is represented by the top block, which is configured with a rotation of 90 degrees and contains multiple cameras (Camera 1, Camera 2, Camera 3, Camera 4).
+2. The captured frames from all cameras are rotated by 90 degrees and sent to the Visualization component, represented by the bottom block.
+3. The Visualization component displays the rotated camera streams (Camera1 (Rot90), Camera2 (Rot90), Camera3 (Rot90), Camera4 (Rot90)) in a grid layout.
+4. The FPS (frames per second) is displayed within the Visualization component.
+
+The arrow between the OAK Camera and the Visualization component represents the flow of rotated data from the cameras to the visualization.

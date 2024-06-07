@@ -1,0 +1,77 @@
+Assignment: Multi-Camera Visualization with Maximum Resolution
+
+Objective:
+In this assignment, you will use the DepthAI SDK to create a Python script that captures and visualizes frames from all available cameras on the OAK device at their maximum resolution.
+
+Requirements:
+1. Install the DepthAI SDK on your system.
+2. Connect an OAK camera to your computer.
+3. Create a Python script that accomplishes the following:
+   - Initialize an OakCamera object.
+   - Create camera streams for all available cameras using the `create_all_cameras()` method with the resolution set to 'max'.
+   - Visualize the camera streams.
+   - Display the frames per second (FPS) on the visualized output.
+   - Start the camera pipeline in blocking mode.
+4. Test your script to ensure it runs without errors and displays the camera streams from all available cameras at their maximum resolution.
+
+Hints:
+1. Use the `oak.create_all_cameras()` method to create camera streams for all available cameras. Pass `resolution='max'` as the argument to set the resolution of the camera streams to their maximum supported resolution.
+2. Use the `oak.visualize()` method to visualize the camera streams. Pass the `cams` variable as the argument to visualize all the created camera streams. Set `fps=True` to display the FPS on the visualized output.
+3. Use `oak.start(blocking=True)` to start the camera pipeline in blocking mode.
+
+```
+                    +----------------------------------+
+                    |           OAK Camera             |
+                    |                                  |
+                    |  +--------------------------+    |
+                    |  |       Camera 1          |    |
+                    |  |    (Max Resolution)     |    |
+                    |  +--------------------------+    |
+                    |                                  |
+                    |  +--------------------------+    |
+                    |  |       Camera 2          |    |
+                    |  |    (Max Resolution)     |    |
+                    |  +--------------------------+    |
+                    |                                  |
+                    |  +--------------------------+    |
+                    |  |       Camera 3          |    |
+                    |  |    (Max Resolution)     |    |
+                    |  +--------------------------+    |
+                    |                                  |
+                    |  +--------------------------+    |
+                    |  |       Camera 4          |    |
+                    |  |    (Max Resolution)     |    |
+                    |  +--------------------------+    |
+                    |                                  |
+                    +----------------------------------+
+                                     |
+                                     |
+                                     v
+               +------------------------------------------+
+               |             Visualization               |
+               |                                          |
+               |  +-----------------------------------+   |
+               |  |             Display              |   |
+               |  |                                   |   |
+               |  |  +------------+  +------------+   |   |
+               |  |  |  Camera 1  |  |  Camera 2  |   |   |
+               |  |  |   Stream   |  |   Stream   |   |   |
+               |  |  +------------+  +------------+   |   |
+               |  |                                   |   |
+               |  |  +------------+  +------------+   |   |
+               |  |  |  Camera 3  |  |  Camera 4  |   |   |
+               |  |  |   Stream   |  |   Stream   |   |   |
+               |  |  +------------+  +------------+   |   |
+               |  |                                   |   |
+               |  |               FPS                |   |
+               |  +-----------------------------------+   |
+               |                                          |
+               +------------------------------------------+
+```
+
+In this ASCII art visualization:
+1. The OAK Camera is represented by the top block, which contains multiple cameras (Camera 1, Camera 2, Camera 3, Camera 4).
+2. Each camera is configured to capture frames at its maximum supported resolution.
+3. The captured frames from all cameras are sent to the Visualization component, represented by the bottom block.
+4. The Visualization component displays the camera streams (Camera 1 Stream, Camera 2 Stream, Camera 3 Stream, Camera 4 Stream) in a grid layout.
+5. The FPS (frames per second) is displayed within the Visualization component.

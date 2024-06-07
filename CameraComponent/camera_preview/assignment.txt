@@ -1,0 +1,22 @@
+Assignment: Stereo Depth Estimation and Visualization
+
+Objective:
+In this assignment, you will use the DepthAI SDK to create a Python script that performs stereo depth estimation using left and right cameras, and visualizes the color, left, right, and depth streams.
+
+Requirements:
+1. Install the DepthAI SDK on your system.
+2. Connect an OAK camera with stereo capabilities to your computer.
+3. Create a Python script that accomplishes the following:
+   - Initialize an OakCamera object.
+   - Create a color camera stream.
+   - Create left and right camera streams.
+   - Create a stereo depth estimation using the left and right camera streams.
+   - Visualize the color, left, right, and depth streams with a scale of 2/3 and display the frames per second (FPS).
+   - Start the camera pipeline in blocking mode.
+4. Test your script to ensure it runs without errors and displays the color, left, right, and depth streams.
+
+Hints:
+1. Use the `oak.create_camera()` method to create camera streams. Pass 'color' as the argument to create a color camera stream, 'left' for the left camera stream, and 'right' for the right camera stream.
+2. Use the `oak.create_stereo()` method to create a stereo depth estimation. Pass the `left` and `right` camera streams as arguments to specify the left and right cameras for stereo depth estimation.
+3. Use the `oak.visualize()` method to visualize the camera streams and depth output. Pass a list containing `color`, `left`, `right`, and `stereo.out.depth` as the argument to visualize the color, left, right, and depth streams. Set `fps=True` to display the FPS and `scale=2/3` to scale the visualized streams.
+4. Use `oak.start(blocking=True)` to start the camera pipeline in blocking mode.

@@ -1,0 +1,34 @@
+Assignment: Camera Control and Visualization
+
+Objective:
+In this assignment, you will use the DepthAI SDK to create a Python script that allows real-time control of camera parameters, such as exposure time and sensitivity, while visualizing the camera stream.
+
+Requirements:
+1. Install the DepthAI SDK on your system.
+2. Connect an OAK camera to your computer.
+3. Create a Python script that accomplishes the following:
+   - Initialize an OakCamera object.
+   - Create a color camera stream.
+   - Visualize the color camera stream with a scale of 2/3 and display the frames per second (FPS).
+   - Start the camera pipeline.
+   - Continuously poll for user input while the camera is running.
+   - Implement the following camera controls based on user input:
+     - Press 'i' to decrease the exposure time.
+     - Press 'o' to increase the exposure time.
+     - Press 'k' to decrease the sensitivity.
+     - Press 'l' to increase the sensitivity.
+     - Press 'e' to switch to auto exposure mode.
+4. Test your script to ensure it runs without errors, displays the camera stream, and responds to user input for camera control.
+
+Hints:
+1. Use the `oak.create_camera()` method to create a color camera stream. Pass 'color' as the argument to specify the color camera.
+2. Use the `oak.visualize()` method to visualize the color camera stream. Pass the `color` object as the first argument, set `fps=True` to display the FPS, and set `scale=2/3` to scale the visualized stream.
+3. Use `oak.start()` to start the camera pipeline.
+4. Use a `while` loop with the condition `oak.running()` to continuously poll for user input while the camera is running.
+5. Inside the loop, use `oak.poll()` to capture user input and store it in the `key` variable.
+6. Use `if-elif` statements to check the value of `key` and perform the corresponding camera control actions:
+   - If `key == ord('i')`, use `color.control.exposure_time_down()` to decrease the exposure time.
+   - If `key == ord('o')`, use `color.control.exposure_time_up()` to increase the exposure time.
+   - If `key == ord('k')`, use `color.control.sensitivity_down()` to decrease the sensitivity.
+   - If `key == ord('l')`, use `color.control.sensitivity_up()` to increase the sensitivity.
+   - If `key == ord('e')`, use `color.control.send_controls({'exposure': {'auto': True}})` to switch to auto exposure mode.

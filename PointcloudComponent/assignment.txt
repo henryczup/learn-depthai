@@ -1,0 +1,72 @@
+Assignment: Colorized Point Cloud Visualization
+
+Objective:
+In this assignment, you will use the DepthAI SDK to create a Python script that generates a colorized point cloud from stereo depth data and visualizes it using the DepthAI viewer.
+
+Requirements:
+1. Install the DepthAI SDK on your system.
+2. Connect an OAK device with stereo and color camera capabilities to your computer.
+3. Create a Python script that accomplishes the following:
+   - Initialize an OakCamera object.
+   - Create a color camera instance using the `camera()` method.
+   - Create a stereo depth instance using the `create_stereo()` method.
+   - Configure the stereo depth to align with the color camera using the `config_stereo()` method.
+   - Create a point cloud instance using the `create_pointcloud()` method, specifying the stereo depth and color camera for colorization.
+   - Visualize the colorized point cloud using the DepthAI viewer.
+   - Start the camera pipeline in blocking mode.
+4. Test your script to ensure it runs without errors and displays the colorized point cloud in the DepthAI viewer.
+
+Hints:
+1. Use the `oak.camera()` method to create a color camera instance. Pass 'color' as the argument to specify the color camera.
+2. Use the `oak.create_stereo()` method to create a stereo depth instance.
+3. Use the `stereo.config_stereo()` method to configure the stereo depth. Set the `align` parameter to the color camera instance to align the depth data with the color camera.
+4. Use the `oak.create_pointcloud()` method to create a point cloud instance. Pass the stereo depth instance as the `stereo` argument and the color camera instance as the `colorize` argument to enable point cloud colorization.
+5. Use the `oak.visualize()` method to visualize the colorized point cloud. Pass the point cloud instance as the argument and set `visualizer='depthai-viewer'` to use the DepthAI viewer.
+6. Use `oak.start(blocking=True)` to start the camera pipeline in blocking mode.
+
+Visualization:
+```
+          +---------------------------------------+
+          |              OAK Device               |
+          |                                       |
+          |  +------------+   +----------------+  |
+          |  |   Color    |   |  Stereo Depth  |  |
+          |  |   Camera   |   |                |  |
+          |  +------------+   +----------------+  |
+          |         |                  |          |
+          |         |                  |          |
+          |         v                  v          |
+          |        +--------------------+         |
+          |        |    Point Cloud     |         |
+          |        |    Colorization    |         |
+          |        +--------------------+         |
+          |                                       |
+          +---------------------------------------+
+                              |
+                              |
+                              v
+          +---------------------------------------+
+          |           DepthAI Viewer              |
+          |                                       |
+          |  +-----------------------------------+ |
+          |  |                                   | |
+          |  |       Colorized Point Cloud       | |
+          |  |                                   | |
+          |  |                                   | |
+          |  |                                   | |
+          |  |                                   | |
+          |  |                                   | |
+          |  |                                   | |
+          |  +-----------------------------------+ |
+          |                                       |
+          +---------------------------------------+
+```
+
+In this ASCII art visualization:
+1. The OAK Device is represented by the top block, which contains the Color Camera and Stereo Depth instances.
+2. The color camera data and stereo depth data are sent to the Point Cloud Colorization component.
+3. The Point Cloud Colorization component generates a colorized point cloud by combining the depth data with the color information.
+4. The colorized point cloud is sent to the DepthAI Viewer, represented by the bottom block.
+5. The DepthAI Viewer displays the colorized point cloud.
+
+The arrows represent the flow of data from the color camera and stereo depth to the point cloud colorization, and from the point cloud colorization to the DepthAI viewer.

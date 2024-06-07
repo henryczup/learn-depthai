@@ -1,0 +1,56 @@
+Step 1: Import the required libraries
+- At the beginning of your Python file, you need to import the necessary libraries.
+- Import the `cv2` library, which is the OpenCV library for image processing and computer vision tasks.
+- Import the `numpy` library and give it an alias `np`. NumPy is used for numerical operations and array manipulation.
+- From the `depthai_sdk` library, import the following classes:
+  - `OakCamera`: Represents the OakCamera device and provides methods to configure and control the camera.
+  - `TwoStagePacket`: A data structure that contains information about the detected faces and their corresponding age and gender recognition results.
+  - `TextPosition`: An enumeration that defines the positions where text can be placed on the frame.
+
+Step 2: Define the callback function
+- Define a function named `callback` that will be called every time the OakCamera processes a frame.
+- The function should take a `TwoStagePacket` object as input, which contains the detected faces and recognition results.
+- Inside the function:
+  - Get the visualizer object from the packet using `packet.visualizer`. The visualizer is used to draw information on the frame.
+  - Start a loop that iterates over the detected faces (`packet.detections`) and their corresponding recognition data (`packet.nnData`) simultaneously using the `zip()` function.
+  - For each face:
+    - Extract the age estimation by accessing the 'age_conv3' layer of the recognition data using `rec.getLayerFp16('age_conv3')`. Convert it to a NumPy array using `np.array()`, squeeze it to remove extra dimensions using `np.squeeze()`, and scale it by 100 to get the age as an integer.
+    - Extract the gender probabilities by accessing the 'prob' layer of the recognition data using `rec.getLayerFp16('prob')`. Convert it to a NumPy array and squeeze it.
+    - Determine the gender based on the probabilities. If the first probability is higher, it's a woman; otherwise, it's a man. Use an if-else statement to assign the appropriate gender string to a variable named `gender_str`.
+    - Add the gender and age information as text on the frame using `visualizer.add_text()`. Specify the text to be displayed (gender and age), the bounding box of the face (`packet.bbox.get_relative_bbox(det.bbox)`), and the position of the text (`TextPosition.BOTTOM_RIGHT`).
+- After the loop, draw the visualizations on the frame using `visualizer.draw(packet.frame)`.
+- Display the frame in a window named 'Age-gender estimation' using `cv2.imshow()`.
+
+Step 3: Set up the OakCamera pipeline
+- Create an instance of the OakCamera class using a `with` statement. This ensures that the camera is properly initialized and cleaned up when the program ends.
+- Create a color camera using `oak.create_camera('color')`. This sets up the color camera stream.
+- Create a face detection neural network (NN) using `oak.create_nn('face-detection-retail-0004', color)`. This loads the face detection model and specifies that it should take input from the color camera.
+  - Configure the face detection NN to use the 'crop' resize mode using `det.config_nn(resize_mode='crop')`. This ensures that the detected faces are cropped and passed to the next stage.
+- Create an age and gender recognition NN using `oak.create_nn('age-gender-recognition-retail-0013', input=det)`. This loads the age and gender recognition model and specifies that it should take input from the face detection NN.
+
+Step 4: Configure the OakCamera visualizations
+- Add visualization for the age and gender recognition results using `oak.visualize(age_gender, callback=callback)`. This specifies that the age and gender recognition results should be visualized and the `callback` function should be called to handle the visualization.
+- Add visualization for the face detection NN's passthrough output using `oak.visualize(det.out.passthrough)`. This allows you to see the original frames with the detected faces.
+- Add visualization for the age and gender recognition NN's two-stage crops using `oak.visualize(age_gender.out.twostage_crops)`. This allows you to see the cropped faces that are being processed by the age and gender recognition NN.
+
+Step 5: Start the OakCamera pipeline
+- Start the OakCamera pipeline using `oak.start(blocking=True)`. This begins the camera capture and processing.
+- The `blocking=True` parameter ensures that the script will block and continue running until the app is stopped by pressing the 'Q' button on the keyboard.
+
+Diagrams:
+1. Pipeline Diagram:
+   ```
+   Color Camera -> Face Detection NN -> Age and Gender Recognition NN -> Visualization
+   ```
+
+2. Callback Function Flow:
+   ```
+   TwoStagePacket -> Extract Face Detections and Recognition Data -> Add Gender and Age Text -> Draw Visualizations -> Display Frame
+   ```
+
+Tips:
+- Make sure you have the required libraries installed before running the script.
+- Experiment with different configurations and parameters to optimize the performance and accuracy of the age and gender estimation.
+- Refer to the documentation of the depthai_sdk library for more information on available APIs and functionalities.
+
+Once you have completed the assignment, run the script and observe the real-time age and gender estimation on the detected faces in the video stream.

@@ -1,0 +1,27 @@
+Assignment: Multi-Camera Visualization and Stereo Configuration
+
+Objective:
+In this assignment, you will use the DepthAI SDK to create a Python script that configures multiple color cameras, sets up stereo depth estimation, and visualizes the camera streams and stereo output.
+
+Requirements:
+1. Install the DepthAI SDK on your system.
+2. Connect three OAK cameras (CAMA, CAMB, and CAMC) to your computer.
+3. Create a Python script that accomplishes the following:
+   - Initialize an OakCamera object.
+   - Create color camera streams for CAMA, CAMB, and CAMC with a resolution of 1200p.
+   - Configure the color cameras with an ISP scale of (2,3).
+   - Create a stereo depth estimation setup using CAMB as the left camera and CAMC as the right camera.
+   - Configure the stereo undistortion with an M2 offset of 0.
+   - Visualize the stereo output, CAMC stream, CAMA stream, and rectified left stereo stream.
+   - Display the frames per second (FPS) on the visualized output.
+   - Start the camera pipeline in blocking mode.
+4. Test your script to ensure it runs without errors and displays the expected camera streams and stereo output.
+
+Hints:
+1. Use the `oak.create_camera()` method to create color camera streams for CAMA, CAMB, and CAMC. Pass the appropriate camera names and resolution as arguments.
+2. Use the `config_color_camera()` method of each camera object to configure the ISP scale. Pass a tuple `(2,3)` as the `isp_scale` argument.
+3. Use the `oak.create_stereo()` method to create a stereo depth estimation setup. Pass the CAMB stream as the `left` argument and the CAMC stream as the `right` argument.
+4. Use the `config_undistortion()` method of the stereo object to configure the undistortion. Set the `M2_offset` argument to 0.
+5. Use the `oak.visualize()` method to visualize the desired camera streams and stereo output. Pass a list containing `stereo`, `camc`, `cama`, and `stereo.out.rectified_left` as the argument.
+6. Use the `fps=True` argument in the `oak.visualize()` method to display the FPS on the visualized output.
+7. Use `oak.start(blocking=True)` to start the camera pipeline in blocking mode.

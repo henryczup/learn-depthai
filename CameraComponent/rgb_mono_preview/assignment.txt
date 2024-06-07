@@ -1,0 +1,55 @@
+Assignment: Visualizing Color and Stereo Camera Streams
+
+Objective:
+In this assignment, you will use the DepthAI SDK to create a Python script that captures and visualizes frames from the color camera and the left and right stereo cameras simultaneously.
+
+Requirements:
+1. Install the DepthAI SDK on your system.
+2. Connect an OAK camera with color and stereo capabilities to your computer.
+3. Create a Python script that accomplishes the following:
+   - Initialize an OakCamera object.
+   - Create camera streams for the color, left, and right cameras using the `create_camera()` method.
+   - Visualize the color, left, and right camera streams.
+   - Display the frames per second (FPS) on the visualized output.
+   - Start the camera pipeline in blocking mode.
+4. Test your script to ensure it runs without errors and displays the color, left, and right camera streams simultaneously.
+
+Hints:
+1. Use the `oak.create_camera()` method to create camera streams. Pass 'color' as the argument to create the color camera stream, 'left' for the left stereo camera stream, and 'right' for the right stereo camera stream.
+2. Use the `oak.visualize()` method to visualize the camera streams. Pass a list containing `color`, `left`, and `right` as the argument to visualize the color, left, and right camera streams. Set `fps=True` to display the FPS on the visualized output.
+3. Use `oak.start(blocking=True)` to start the camera pipeline in blocking mode.
+
+Visualization:
+```
+          +---------------------------------------+
+          |              OAK Camera              |
+          |                                       |
+          |  +------------+   +-------+-------+   |
+          |  |   Color    |   |  Left | Right |   |
+          |  |   Camera   |   | Stereo Cameras|   |
+          |  +------------+   +-------+-------+   |
+          |                                       |
+          +---------------------------------------+
+                    |             |        |
+                    |             |        |
+                    v             v        v
+          +---------------------------------------+
+          |            Visualization              |
+          |                                       |
+          |  +---------+   +---------+---------+  |
+          |  |  Color  |   |  Left   |  Right  |  |
+          |  |  Stream |   |  Stream |  Stream |  |
+          |  +---------+   +---------+---------+  |
+          |                                       |
+          |                  FPS                  |
+          |                                       |
+          +---------------------------------------+
+```
+
+In this ASCII art visualization:
+1. The OAK Camera is represented by the top block, which contains the Color Camera and the Left and Right Stereo Cameras.
+2. The captured frames from the Color Camera, Left Stereo Camera, and Right Stereo Camera are sent to the Visualization component, represented by the bottom block.
+3. The Visualization component displays the Color Stream, Left Stream, and Right Stream side by side.
+4. The FPS (frames per second) is displayed within the Visualization component.
+
+The arrows between the OAK Camera and the Visualization component represent the flow of data from the cameras to the visualization.

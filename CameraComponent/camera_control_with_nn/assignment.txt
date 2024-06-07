@@ -1,0 +1,24 @@
+Assignment: Face Detection and Camera Control
+
+Objective:
+In this assignment, you will use the DepthAI SDK to create a Python script that performs face detection on a color camera stream and automatically controls the camera's exposure and focus based on the largest detected face.
+
+Requirements:
+1. Install the DepthAI SDK on your system.
+2. Connect an OAK camera to your computer.
+3. Create a Python script that accomplishes the following:
+   - Initialize an OakCamera object.
+   - Create a color camera stream.
+   - Create a face detection neural network (use 'face-detection-retail-0004') and attach it to the color camera stream.
+   - Configure the camera to automatically control exposure and focus based on the largest detected face.
+   - Visualize the face detection results.
+   - Display the frames per second (FPS) on the visualized output.
+   - Start the camera pipeline in blocking mode.
+4. Test your script to ensure it runs without errors, detects faces in the camera stream, and automatically adjusts the camera's exposure and focus based on the largest detected face.
+
+Hints:
+1. Use the `oak.create_camera()` method to create a color camera stream. Pass 'color' as the argument to specify the color camera.
+2. Use the `oak.create_nn()` method to create a face detection neural network. Pass 'face-detection-retail-0004' as the first argument and `color` as the second argument to attach the neural network to the color camera stream.
+3. Use the `color.control_with_nn()` method to configure the camera to automatically control exposure and focus based on the face detection results. Set `auto_focus=True` and `auto_exposure=True` to enable automatic focus and exposure control, respectively. Set `debug=False` to disable debug mode.
+4. Use the `oak.visualize()` method to visualize the face detection results. Pass `face_det` as the argument to visualize the output of the face detection neural network. Set `fps=True` to display the FPS on the visualized output.
+5. Use `oak.start(blocking=True)` to start the camera pipeline in blocking mode.

@@ -1,0 +1,85 @@
+Assignment: Custom Person Detection
+
+Objective:
+In this assignment, you will use the DepthAI SDK to create a Python script that performs person detection using a custom decoding function for the neural network output.
+
+Requirements:
+1. Install the DepthAI SDK, OpenCV, and blobconverter on your system.
+2. Connect an OAK camera to your computer.
+3. Create a Python script that accomplishes the following:
+   - Initialize an OakCamera object.
+   - Create a color camera stream.
+   - Download the 'person-detection-0200' model blob using blobconverter.
+   - Create a neural network (NN) component using the downloaded model blob and attach it to the color camera stream.
+   - Implement a custom decode function named `decode` that accepts `dai.NNData` as input and returns a `Detections` object.
+     - Extract the first layer of the NN output as a float16 numpy array.
+     - Reshape the array to have dimensions (1, 1, -1, 7).
+     - Create a `Detections` object to store the decoded detections.
+     - Iterate over the results and filter detections with confidence > 0.3.
+     - For each filtered detection, extract the label, confidence, and bounding box coordinates.
+     - Create a `dai.ImgDetection` object and populate its attributes with the extracted information.
+     - Append the `ImgDetection` object to the `detections` list of the `Detections` object.
+     - Return the `Detections` object.
+   - Visualize the person detections using the custom decode function.
+   - Start the camera pipeline in blocking mode.
+4. Test your script to ensure it runs without errors and displays the person detections in real-time.
+
+Hints:
+1. Use the `oak.create_camera()` method to create a color camera stream. Pass 'color' as the argument to specify the color camera.
+2. Use `blobconverter.from_zoo()` to download the 'person-detection-0200' model blob. Set `version='2021.4'` and `shaves=6`.
+3. Use the `oak.create_nn()` method to create the NN component. Pass the downloaded model blob path as the first argument, the color camera stream as the second argument, and the custom decode function `decode` as the `decode_fn` argument.
+4. Implement the `decode` function according to the provided code snippet. Use `np.array(layer).reshape((1, 1, -1, 7))` to reshape the NN output. Filter detections with confidence > 0.3 using `if result[2] > 0.3`. Create `dai.ImgDetection` objects and populate their attributes based on the filtered detections.
+5. Use the `oak.visualize()` method to visualize the person detections. Pass the NN component as the argument.
+6. Use `oak.start(blocking=True)` to start the camera pipeline in blocking mode.
+
+Visualization:
+```
+          +---------------------------------------+
+          |              OAK Camera               |
+          |                                       |
+          |  +------------+                       |
+          |  |   Color    |                       |
+          |  |   Camera   |                       |
+          |  +-----+------+                       |
+          |        |                              |
+          |        v                              |
+          |  +-----+------+                       |
+          |  |    NN      |                       |
+          |  |  Component |                       |
+          |  +-----+------+                       |
+          |        |                              |
+          |        v                              |
+          |  +-----+------+                       |
+          |  |   Custom   |                       |
+          |  |   Decode   |                       |
+          |  |  Function  |                       |
+          |  +-----+------+                       |
+          |        |                              |
+          +--------+--------------+---------------+
+                   |              |
+                   v              v
+          +--------+--------------+---------------+
+          |           Visualization               |
+          |                                       |
+          |  +-----------------------------------+ |
+          |  |                                   | |
+          |  |        Person Detections          | |
+          |  |                                   | |
+          |  |  +----+                           | |
+          |  |  |    |                           | |
+          |  |  |    |                           | |
+          |  |  +----+                           | |
+          |  |                                   | |
+          |  +-----------------------------------+ |
+          |                                       |
+          +---------------------------------------+
+```
+
+In this ASCII art visualization:
+1. The OAK Camera captures frames from the color camera.
+2. The frames are passed through the NN component, which uses the 'person-detection-0200' model blob.
+3. The output of the NN component is passed to the custom decode function.
+4. The custom decode function decodes the NN output and creates a `Detections` object containing the person detections.
+5. The visualization block displays the person detections on the frames.
+
+The arrows represent the flow of data from the color camera to the NN component, then to the custom decode function, and finally to the visualization block.

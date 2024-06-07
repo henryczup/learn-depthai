@@ -1,0 +1,22 @@
+Assignment: Encoded and Non-Encoded Video Streaming
+
+Objective:
+In this assignment, you will use the DepthAI SDK to create a Python script that demonstrates video streaming with both encoded (H.265) and non-encoded frames from a color camera.
+
+Requirements:
+1. Install the DepthAI SDK on your system.
+2. Connect an OAK camera to your computer.
+3. Create a Python script that accomplishes the following:
+   - Initialize an OakCamera object.
+   - Create a color camera stream with H.265 encoding.
+   - Visualize the encoded color camera stream with a scale of 2/3 and display the frames per second (FPS).
+   - Visualize the non-encoded color camera stream with a scale of 2/3 and display the FPS.
+   - Start the camera pipeline in blocking mode.
+4. Test your script to ensure it runs without errors and displays both the encoded and non-encoded video streams.
+
+Hints:
+1. Use the `oak.create_camera()` method to create a color camera stream. Pass 'color' as the first argument to specify the color camera. Set `encode='h265'` to enable H.265 encoding for the color camera stream.
+2. Use the `oak.visualize()` method to visualize the encoded color camera stream. Pass `color.out.encoded` as the argument to access the encoded output of the color camera. Set `fps=True` to display the FPS and `scale=2/3` to scale the visualized stream.
+3. Use another `oak.visualize()` method to visualize the non-encoded color camera stream. Pass `color` as the argument to access the non-encoded output of the color camera. Set `fps=True` to display the FPS and `scale=2/3` to scale the visualized stream.
+4. Use `oak.start(blocking=True)` to start the camera pipeline in blocking mode.
+

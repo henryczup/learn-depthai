@@ -1,0 +1,50 @@
+Assignment: High FPS Stereo Camera Visualization
+
+Objective:
+In this assignment, you will use the DepthAI SDK to create a Python script that captures and visualizes high FPS (60 FPS) stereo camera streams from the left and right cameras.
+
+Requirements:
+1. Install the DepthAI SDK on your system.
+2. Connect an OAK camera with stereo capabilities to your computer.
+3. Create a Python script that accomplishes the following:
+   - Initialize an OakCamera object.
+   - Create left and right camera streams with a resolution of 400p and a frame rate of 60 FPS.
+   - Visualize the left and right camera streams.
+   - Display the frames per second (FPS) on the visualized output.
+   - Start the camera pipeline in blocking mode.
+4. Test your script to ensure it runs without errors and displays the left and right camera streams at 60 FPS.
+
+Hints:
+1. Use the `oak.create_camera()` method to create camera streams. Pass 'left' as the argument to create the left camera stream, and 'right' for the right camera stream.
+2. Set the `resolution` parameter to '400p' and the `fps` parameter to 60 when creating the left and right camera streams to specify the desired resolution and frame rate.
+3. Use the `oak.visualize()` method to visualize the camera streams. Pass a list containing `left` and `right` as the argument to visualize the left and right camera streams. Set `fps=True` to display the FPS on the visualized output.
+4. Use `oak.start(blocking=True)` to start the camera pipeline in blocking mode.
+
++----------------------------------+
+|          OAK Camera              |
+|                                  |
+|  +-------------+  +-------------+|
+|  |    Left     |  |    Right    ||
+|  |   Camera    |  |   Camera    ||
+|  |  (400p@60)  |  |  (400p@60)  ||
+|  +-------------+  +-------------+|
+|                                  |
++----------------------------------+
+            |            |
+            |            |
+            v            v
++----------------------------------+
+|        Visualization             |
+|                                  |
+|  +------------------------+      |
+|  |        Display         |      |
+|  |                        |      |
+|  |  +-------+  +-------+  |      |
+|  |  | Left  |  | Right |  |      |
+|  |  | Stream|  | Stream|  |      |
+|  |  +-------+  +-------+  |      |
+|  |                        |      |
+|  |         FPS            |      |
+|  +------------------------+      |
+|                                  |
++----------------------------------+

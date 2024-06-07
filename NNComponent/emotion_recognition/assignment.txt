@@ -1,0 +1,90 @@
+Assignment: Emotion Recognition
+
+Objective:
+In this assignment, you will use the DepthAI SDK to create a Python script that performs emotion recognition on detected faces using a two-stage neural network pipeline.
+
+Requirements:
+1. Install the DepthAI SDK and OpenCV on your system.
+2. Connect an OAK camera to your computer.
+3. Create a Python script that accomplishes the following:
+   - Initialize an OakCamera object.
+   - Create a color camera stream.
+   - Create a face detection neural network (use 'face-detection-retail-0004') and configure it to crop the detected faces.
+   - Create an emotion recognition neural network (use 'emotions-recognition-retail-0003') and connect it to the output of the face detection network.
+   - Define a list of emotions corresponding to the output of the emotion recognition network.
+   - Implement a callback function that receives the processed frames and performs the following:
+     - Extract the emotion probabilities from the neural network output.
+     - Determine the emotion with the highest probability.
+     - Display the recognized emotion as text on the frame using the visualizer.
+     - Draw the processed frame and display it in a window.
+   - Visualize the emotion recognition results and face detection passthrough frames.
+   - Display the frames per second (FPS) on the visualized output.
+   - Start the camera pipeline in blocking mode.
+4. Test your script to ensure it runs without errors and displays the recognized emotions on the detected faces in real-time.
+
+Hints:
+1. Use the `oak.create_camera()` method to create a color camera stream. Pass 'color' as the argument to specify the color camera.
+2. Use the `oak.create_nn()` method to create the face detection neural network. Pass 'face-detection-retail-0004' as the argument and set the input to the color camera stream.
+3. Use the `det.config_nn()` method to configure the face detection network. Set `resize_mode='crop'` to crop the detected faces.
+4. Use the `oak.create_nn()` method to create the emotion recognition neural network. Pass 'emotions-recognition-retail-0003' as the argument and set the input to the output of the face detection network.
+5. Define a list of emotions corresponding to the output of the emotion recognition network. For example, `emotions = ['neutral', 'happy', 'sad', 'surprise', 'anger']`.
+6. Implement the `callback` function that takes a `TwoStagePacket` as input and performs the emotion recognition on the detected faces. Use `np.array(rec.getFirstLayerFp16())` to extract the emotion probabilities and `np.argmax()` to determine the emotion with the highest probability.
+7. Use the `visualizer.add_text()` method to display the recognized emotion on the frame. Set the `bbox` parameter to the relative bounding box of the detected face and the `position` parameter to `TextPosition.BOTTOM_RIGHT`.
+8. Use `visualizer.draw()` to draw the processed frame and `cv2.imshow()` to display it in a window.
+9. Use the `oak.visualize()` method to visualize the emotion recognition results and face detection passthrough frames. Set `callback=callback` to pass the processed frames to the callback function and `fps=True` to display the FPS on the visualized output.
+10. Use `oak.start(blocking=True)` to start the camera pipeline in blocking mode.
+
+Visualization:
+```
+          +---------------------------------------+
+          |              OAK Camera               |
+          |                                       |
+          |  +------------+                       |
+          |  |   Color    |                       |
+          |  |   Camera   |                       |
+          |  +-----+------+                       |
+          |        |                              |
+          |        v                              |
+          |  +-----+------+                       |
+          |  |    Face    |                       |
+          |  |  Detection |                       |
+          |  +-----+------+                       |
+          |        |                              |
+          |        v                              |
+          |  +-----+------+                       |
+          |  |  Emotion   |                       |
+          |  | Recognition|                       |
+          |  +-----+------+                       |
+          |        |                              |
+          +--------+--------------+---------------+
+                   |              |
+                   v              v
+          +--------+--------------+---------------+
+          |           Visualization               |
+          |                                       |
+          |  +-----------------------------------+ |
+          |  |                                   | |
+          |  |       Emotion Recognition         | |
+          |  |                                   | |
+          |  |  +----+   +------------------+    | |
+          |  |  |Face|   |  Emotion: Happy  |    | |
+          |  |  |    |   |                  |    | |
+          |  |  +----+   +------------------+    | |
+          |  |                                   | |
+          |  |                 FPS               | |
+          |  +-----------------------------------+ |
+          |                                       |
+          |  +-----------------------------------+ |
+          |  |       Face Detection Output       | |
+          |  +-----------------------------------+ |
+          |                                       |
+          +---------------------------------------+
+```
+
+In this ASCII art visualization:
+1. The OAK Camera captures frames from the color camera.
+2. The frames are passed through the face detection neural network, which detects faces and crops them.
+3. The cropped faces are passed to the emotion recognition neural network, which predicts the emotions for each face.
+4. The visualization block displays the recognized emotions on the detected faces, along with the face detection output and the FPS.
+
+The arrows represent the flow of data from the color camera to the face detection network, then to the emotion recognition network, and finally to the visualization block.
